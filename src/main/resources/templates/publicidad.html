@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: cabecera('Promociones')}"></head>
+<body>
+    <nav th:replace="~{fragments/layout :: navbar}"></nav>
+    <main class="container mt-5 mb-5 flex-grow-1">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="h3 mb-0 fw-bold" style="color: var(--bs-dark);">Promociones Activas</h2>
+        </div>
+        
+        <div class="card shadow-sm border-0 overflow-hidden">
+            <div id="carouselPublicidad" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselPublicidad" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#carouselPublicidad" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#carouselPublicidad" data-bs-slide-to="2"></button>
+                </div>
+
+                <div class="carousel-inner bg-light">
+                    <div class="carousel-item active" style="height: 450px;">
+                        <img th:src="@{/assets/imagenes/promo_bebidas.jpg}" class="d-block w-100 h-100 p-3" style="object-fit: contain;" alt="Promoción de Bebidas">
+                        <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-75 rounded px-3 py-2 mb-2">
+                            <h5 class="fw-bold text-white mb-1">Festival de Bebidas Locales</h5>
+                            <p class="mb-0 text-light">Lleva 3 y paga 2 en gaseosas de 1 litro.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item" style="height: 450px;">
+                        <img th:src="@{/assets/imagenes/promo_snacks.jpg}" class="d-block w-100 h-100 p-3" style="object-fit: contain;" alt="Descuento en Snacks">
+                        <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-75 rounded px-3 py-2 mb-2">
+                            <h5 class="fw-bold text-white mb-1">Semana del Snack</h5>
+                            <p class="mb-0 text-light">20% de descuento en snacks salados seleccionados.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item" style="height: 450px;">
+                        <img th:src="@{/assets/imagenes/promo_lacteos.jpg}" class="d-block w-100 h-100 p-3" style="object-fit: contain;" alt="Especial Lácteos">
+                        <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-75 rounded px-3 py-2 mb-2">
+                            <h5 class="fw-bold text-white mb-1">Desayunos Nutritivos</h5>
+                            <p class="mb-0 text-light">Precios especiales en yogurts y lácteos de marca nacional.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselPublicidad" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselPublicidad" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+        </div>
+    </main>
+    <footer th:replace="~{fragments/layout :: footer}"></footer>
+
+</body>
+</html>

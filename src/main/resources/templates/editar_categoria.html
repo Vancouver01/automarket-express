@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: cabecera('Editar Categoría')}"></head>
+<body>
+    <nav th:replace="~{fragments/layout :: navbar}"></nav>
+    <main class="container mt-5 mb-5 flex-grow-1">
+        <h1 class="h3 mb-4 fw-bold" style="color: var(--bs-dark);">Editar Categoría</h1>
+        
+        <div class="row">
+            <div class="col-12 col-md-8 col-lg-6">
+              <form th:action="@{/categorias/actualizar}" method="post">
+    <input type="hidden" name="id" th:value="${categoria.id}">
+
+    <div class="mb-3">
+        <label for="nombre" class="form-label fw-medium text-muted small text-uppercase">Nombre de Categoría</label>
+        <input type="text" name="nombre" class="form-control" id="nombre" th:value="${categoria.nombre}" required>
+    </div>
+    <div class="mb-4">
+        <label for="descripcion" class="form-label fw-medium text-muted small text-uppercase">Descripción</label>
+        <textarea name="descripcion" class="form-control" id="descripcion" rows="3" th:text="${categoria.descripcion}" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary me-2">Guardar Cambios</button>
+    <a th:href="@{/categorias}" class="btn btn-outline-secondary">Cancelar</a>
+</form>
+            </div>
+        </div>
+    </main>
+    <footer th:replace="~{fragments/layout :: footer}"></footer>
+
+</body>
+</html>

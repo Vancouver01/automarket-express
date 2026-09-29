@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: cabecera('Soporte Técnico')}"></head>
+<body>
+    <nav th:replace="~{fragments/layout :: navbar}"></nav>
+    <main class="container mt-5 mb-5 flex-grow-1">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-5">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body p-5">
+                        <div class="text-center mb-4">
+                            <h2 class="h4 fw-bold" style="color: var(--bs-dark);">Soporte Técnico</h2>
+                            <p class="text-muted small">Genera un ticket de asistencia para el sistema.</p>
+                        </div>
+
+                        <div th:if="${param.enviado}" class="alert alert-success py-2 small fw-bold mb-3" role="alert">
+                            ¡Ticket de soporte registrado con éxito! Nuestro equipo técnico atenderá la incidencia a la brevedad.
+                        </div>
+
+                        <form th:action="@{/contacto}" method="post">
+                            <div class="mb-3">
+                                <label for="nombreContacto" class="form-label fw-bold text-muted small text-uppercase">Nombre del Colaborador</label>
+                                <input type="text" name="nombre" class="form-control bg-light" id="nombreContacto" placeholder="Nombre Completo" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="correoContacto" class="form-label fw-bold text-muted small text-uppercase">Correo Corporativo</label>
+                                <input type="email" name="correo" class="form-control bg-light" id="correoContacto" placeholder="EMP-0000@automarket.pe" required>
+                            </div>
+                            <div class="mb-4">
+                                <label for="mensajeContacto" class="form-label fw-bold text-muted small text-uppercase">Detalle del Incidente</label>
+                                <textarea name="mensaje" class="form-control bg-light" id="mensajeContacto" rows="4" placeholder="Describe el problema de forma clara..." required></textarea>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary py-2 fw-bold">Enviar Solicitud</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

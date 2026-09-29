@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: cabecera('Terminal de Autopago')}"></head>
+<body>
+    <nav th:replace="~{fragments/layout :: navbar}"></nav>
+    <main class="container mt-5 mb-5 flex-grow-1">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2 class="fw-bold mb-0">Terminal de Autopago</h2>
+                <p class="text-muted small">Caja #01 - Operativa</p>
+            </div>
+            <span class="badge" style="background-color: var(--bs-secondary); font-size: 0.9rem;">Turno Mañana</span>
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-12 col-lg-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body p-4">
+                        <h5 class="fw-bold mb-4">Escanear Artículo</h5>
+
+                        <form th:action="@{/caja/agregar}" method="post">
+                            <div class="mb-3">
+                                <label class="form-label text-muted small text-uppercase fw-bold">Código de Barras / SKU</label>
+                                <input type="text" name="sku" class="form-control form-control-lg" placeholder="Ej. 7750001 o 4901005" required autofocus>
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary btn-lg">Añadir al Carrito</button>
+                                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalCatalogo">Búsqueda Manual</button>
+                            </div>
+                        </form>
+
+                        <div th:if="${error}" class="alert alert-danger py-2 small fw-bold mt-3 mb-0" role="alert" th:text="${error}"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-8">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body p-4">
+                        <h5 class="fw-bold mb-4">Detalle de Compra</h5>
+                        <div class="table-responsive">
+                            <table class="table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th class="border-0">Producto</th>
+                                        <th class="border-0 text-center">Cant.</th>
+                                        <th class="border-0 text-end">Precio Unit.</th>
+                                        <th class="border-0 text-end">Importe</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr th:if="${#lists.isEmpty(carrito)}">
+                                        <td colspan="4" class="text-center text-muted py-4 small">
+                                            El carrito está vacío. Escanee un código SKU o use la búsqueda manual.
+                                        </td>
+                                    </tr>
+
+                                    <tr th:each="it : ${carrito}">
+                                        <td>
+                                            <div class="fw-bold" th:text="${it.producto.nombre}">Inca Kola 600ml</div>
+                                            <div class="small text-muted" th:text="'SKU: ' + ${it.producto.sku}">SKU: 7750001</div>
+                                        </td>
+                                        <td class="text-center fw-bold" th:text="${it.cantidad}">1</td>
+                                        <td class="text-end" th:text="'S/ ' + ${#numbers.formatDecimal(it.producto.precio, 1, 2)}">S/ 3.50</td>
+                                        <td class="text-end fw-bold" style="color: var(--bs-primary);" th:text="'S/ ' + ${#numbers.formatDecimal(it.subtotal, 1, 2)}">S/ 3.50</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <hr class="my-4" style="border-top: 2px dashed #dee2e6;">
+                        <div class="d-flex justify-content-between align-items-end">
+                            <button type="button" class="btn btn-danger btn-lg px-5" 
+                                    style="background-color: var(--bs-danger);" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#modalPago"
+                                    th:disabled="${#lists.isEmpty(carrito)}">Finalizar Compra</button>
+                            <div class="text-end">
+                                <p class="text-muted mb-0 small text-uppercase">Total a Pagar</p>
+                                <h2 class="fw-bold mb-0" style="color: var(--bs-primary);" 
+                                    th:text="'S/ ' + ${#numbers.formatDecimal(total != null ? total : 0, 1, 2)}">S/ 0.00</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="modal fade" id="modalCatalogo" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header border-0 bg-light">
+                    <h5 class="modal-title fw-bold">Catálogo de Productos Disponibles</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="row g-3">
+                        <div class="col-6 col-md-4" th:each="prod : ${productos}">
+                            <div class="card text-center border h-100">
+                                <div class="card-body p-3 d-flex flex-column justify-content-between">
+                                    <div class="mb-2" style="font-size: 2.5rem;">📦</div>
+                                    <h6 class="fw-bold mb-1" th:text="${prod.nombre}">Producto</h6>
+                                    <p class="text-muted small mb-1" th:text="'Stock: ' + ${prod.stock} + ' | ' + ${prod.categoria}">Stock: 0</p>
+                                    <p class="text-primary fw-bold mb-2" th:text="'S/ ' + ${#numbers.formatDecimal(prod.precio, 1, 2)}">S/ 0.00</p>
+                                    <form th:action="@{/caja/agregar}" method="post">
+                                        <input type="hidden" name="sku" th:value="${prod.sku}">
+                                        <button type="submit" class="btn btn-sm btn-outline-secondary w-100">Agregar</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 text-center text-muted py-4" th:if="${#lists.isEmpty(productos)}">
+                            No hay productos activos o disponibles en este momento.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalPago" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header border-0 bg-light">
+                    <h5 class="modal-title fw-bold">Seleccione Método de Pago</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4 text-center">
+                    <p class="text-muted mb-4">Monto total a cancelar: 
+                        <span class="fw-bold text-dark" th:text="'S/ ' + ${#numbers.formatDecimal(total != null ? total : 0, 1, 2)}">S/ 0.00</span>
+                    </p>
+                    <form th:action="@{/caja/finalizar}" method="post" class="d-grid gap-3">
+                        <button type="submit" class="btn border py-3 fw-bold text-dark d-flex align-items-center justify-content-center">
+                            <img th:src="@{/assets/imagenes/icono_tarjeta.png}" alt="Tarjeta" width="28" class="me-3">
+                            Tarjeta de Crédito o Débito
+                        </button>
+                        <button type="submit" class="btn border py-3 fw-bold text-dark d-flex align-items-center justify-content-center">
+                            <img th:src="@{/assets/imagenes/icono_googlepay.png}" alt="Google Pay" width="28" class="me-3">
+                            Google Pay
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

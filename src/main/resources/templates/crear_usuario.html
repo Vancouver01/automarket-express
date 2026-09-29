@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: cabecera('Registrar Colaborador')}"></head>
+<body>
+    <nav th:replace="~{fragments/layout :: navbar}"></nav>
+    <main class="container mt-5 mb-5 flex-grow-1">
+        <h1 class="h3 mb-4 fw-bold" style="color: var(--bs-dark);">Registrar Nuevo Colaborador</h1>
+
+        <div class="row">
+            <div class="col-12 col-md-8 col-lg-6">
+          <form th:action="@{/usuarios/guardar}" method="post">
+    <div class="mb-3">
+        <label for="nombreUsuario" class="form-label fw-medium text-muted small text-uppercase">Nombre Completo</label>
+        <input type="text" name="nombre" class="form-control" id="nombreUsuario" placeholder="Ej. Juan Pérez" required>
+    </div>
+    <div class="mb-3">
+        <label for="correoUsuario" class="form-label fw-medium text-muted small text-uppercase">Correo Corporativo</label>
+        <input type="email" name="correo" class="form-control" id="correoUsuario" placeholder="EMP-0000@automarket.pe" required>
+    </div>
+    <div class="mb-3">
+        <label for="rolUsuario" class="form-label fw-medium text-muted small text-uppercase">Rol del Sistema</label>
+        <select name="rol" class="form-select" id="rolUsuario" required>
+            <option selected disabled value="">Seleccione un rol</option>
+            <option value="Cajero">Cajero</option>
+            <option value="Supervisor">Supervisor</option>
+        </select>
+    </div>
+    <div class="mb-4">
+        <label for="passwordUsuario" class="form-label fw-medium text-muted small text-uppercase">Contraseña Temporal</label>
+        <input type="password" class="form-control" id="passwordUsuario" placeholder="••••••••" required>
+    </div>
+    <button type="submit" class="btn btn-primary me-2">Guardar Registro</button>
+    <a th:href="@{/usuarios}" class="btn btn-outline-secondary">Cancelar</a>
+</form>
+            </div>
+        </div>
+    </main>
+    <footer th:replace="~{fragments/layout :: footer}"></footer>
+
+</body>
+</html>

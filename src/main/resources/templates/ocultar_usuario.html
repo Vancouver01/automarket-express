@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: cabecera('Bloquear Colaborador')}"></head>
+<body>
+    <nav th:replace="~{fragments/layout :: navbar}"></nav>
+    <main class="container flex-grow-1 d-flex align-items-center justify-content-center py-5">
+        <div class="row justify-content-center w-100">
+            <div class="col-12 col-sm-8 col-md-6 col-lg-5">
+                <div class="card border-danger shadow">
+                    <div class="card-body text-center p-4">
+                        <h4 class="card-title text-danger mb-3">Confirmar Bloqueo</h4>
+                        <p class="card-text">¿Estás seguro de que deseas suspender el acceso de este colaborador al sistema?</p>
+                        <div class="d-flex justify-content-center gap-2 mt-4">
+                            <a th:href="@{/usuarios}" class="btn btn-danger" style="background-color: var(--bs-danger); border: none;" role="button">Bloquear Acceso</a>
+                            <a th:href="@{/usuarios}" class="btn btn-outline-secondary" role="button">Cancelar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer th:replace="~{fragments/layout :: footer}"></footer>
+
+</body>
+</html>

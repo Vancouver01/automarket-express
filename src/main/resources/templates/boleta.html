@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: cabecera('Comprobante de Pago')}"></head>
+<body>
+    <nav th:replace="~{fragments/layout :: navbar}"></nav>
+    <main class="container flex-grow-1 d-flex align-items-center justify-content-center py-5">
+        <div class="row justify-content-center w-100">
+            <div class="col-12 col-sm-8 col-md-6 col-lg-5">
+                <div class="card shadow border-0">
+                    <div class="card-body p-4 text-center">
+                        <div class="text-success mb-2" style="font-size: 2.5rem;">✓</div>
+                        <h4 class="card-title text-success fw-bold mb-1">¡Venta Exitosa!</h4>
+                        <p class="card-subtitle text-muted small mb-2">AutoMarket Express S.A.C.</p>
+                        <p class="text-dark fw-bold small mb-3" th:text="'Boleta Electrónica: ' + ${comprobante}">Boleta: B001-000001</p>
+                        <hr>
+
+                        <table class="table table-borderless mb-0">
+                            <tbody>
+                                <tr th:each="it : ${items}">
+                                    <td class="text-start">
+                                        <span class="fw-medium" th:text="${it.producto.nombre}">Producto</span>
+                                        <span class="text-muted small" th:text="' x' + ${it.cantidad}"> x1</span>
+                                    </td>
+                                    <td class="text-end fw-bold" th:text="'S/ ' + ${#numbers.formatDecimal(it.subtotal, 1, 2)}">S/ 0.00</td>
+                                </tr>
+                                <tr th:if="${#lists.isEmpty(items)}">
+                                    <td colspan="2" class="text-muted small py-3">No hay comprobantes pendientes de consulta.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <hr>
+                        
+                        <div class="d-flex justify-content-between fw-bold mb-3 fs-5">
+                            <span>Total Pagado</span>
+                            <span class="text-success" th:text="'S/ ' + ${#numbers.formatDecimal(total != null ? total : 0, 1, 2)}">S/ 0.00</span>
+                        </div>
+                        <p class="text-muted small mb-4">Gracias por su compra. Conserve este comprobante digital.</p>
+                        <a th:href="@{/caja}" class="btn btn-primary w-100 py-2" role="button">Nueva Operación</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

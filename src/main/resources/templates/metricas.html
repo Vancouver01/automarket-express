@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: cabecera('Dashboard de Analítica')}"></head>
+<body>
+    <nav th:replace="~{fragments/layout :: navbar}"></nav>
+    <main class="container mt-5 mb-5 flex-grow-1">
+        <h2 class="h3 mb-4 fw-bold" style="color: var(--bs-dark);">Dashboard de Analítica</h2>
+        <div class="row g-4">
+            <div class="col-12 col-md-6">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body p-4">
+                        <h6 class="card-title fw-bold text-muted text-uppercase small mb-3">Ventas (S/.) últimos 8 meses</h6>
+                        <img th:src="@{/assets/imagenes/grafico_ventas_meses.png}" class="img-fluid rounded border" alt="Gráfico de ventas temporales">
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body p-4">
+                        <h6 class="card-title fw-bold text-muted text-uppercase small mb-3">Afluencia por día de la semana</h6>
+                        <img th:src="@{/assets/imagenes/grafico_afluencia_dias.png}" class="img-fluid rounded border" alt="Gráfico de afluencia semanal">
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body p-4">
+                        <h6 class="card-title fw-bold text-muted text-uppercase small mb-3">Top 5 productos más vendidos mensuales</h6>
+                        <img th:src="@{/assets/imagenes/grafico_top_productos.png}" class="img-fluid rounded border" alt="Evolución de top productos">
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body p-4">
+                        <h6 class="card-title fw-bold text-muted text-uppercase small mb-3">Tiempo promedio por transacción</h6>
+                        <img th:src="@{/assets/imagenes/grafico_tiempo_transaccion.png}" class="img-fluid rounded border" alt="Tendencia de tiempos">
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 mx-auto">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body p-4 text-center">
+                        <h6 class="card-title fw-bold text-muted text-uppercase small mb-3">Categorías populares del semestre</h6>
+                        <img th:src="@{/assets/imagenes/grafico_categorias.png}" class="img-fluid rounded border" style="max-height: 250px; object-fit: contain;" alt="Distribución de categorías">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: cabecera('Nuevo Producto')}"></head>
+<body>
+    <nav th:replace="~{fragments/layout :: navbar}"></nav>
+    <main class="container mt-5 mb-5 flex-grow-1">
+        <h1 class="h3 mb-4 fw-bold" style="color: var(--bs-dark);">Nuevo Producto</h1>
+
+        <div class="row">
+            <div class="col-12 col-md-8 col-lg-6">
+                <form th:action="@{/productos/guardar}" method="post">
+    <div class="mb-3">
+        <label for="nombreProducto" class="form-label fw-medium text-muted small text-uppercase">Nombre del Producto</label>
+        <input type="text" name="nombre" class="form-control" id="nombreProducto" placeholder="Ej. Coca Cola 500ml" required>
+    </div>
+    <div class="mb-3">
+        <label for="precioProducto" class="form-label fw-medium text-muted small text-uppercase">Precio (S/.)</label>
+        <input type="number" name="precio" class="form-control" id="precioProducto" placeholder="0.00" step="0.10" required>
+    </div>
+    <div class="mb-3">
+        <label for="stockProducto" class="form-label fw-medium text-muted small text-uppercase">Stock Inicial</label>
+        <input type="number" name="stock" class="form-control" id="stockProducto" placeholder="0" required>
+    </div>
+   <div class="mb-4">
+    <label for="categoria" class="form-label fw-medium text-muted small text-uppercase">Categoría</label>
+    <select name="categoria" class="form-select" id="categoria" required>
+        <option value="" disabled selected>Seleccione una categoría</option>
+        <option th:each="cat : ${categorias}" 
+                th:value="${cat.nombre}" 
+                th:text="${cat.nombre}"></option>
+    </select>
+</div>
+    <button type="submit" class="btn btn-primary me-2">Guardar</button>
+    <a th:href="@{/productos}" class="btn btn-outline-secondary">Cancelar</a>
+</form>
+            </div>
+        </div>
+    </main>
+    <footer th:replace="~{fragments/layout :: footer}"></footer>
+
+</body>
+</html>
